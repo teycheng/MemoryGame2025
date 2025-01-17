@@ -8,11 +8,40 @@
 import SwiftUI
 
 struct ImagePickerView: View {
+    @State private var images = ["cloud.sun.rain", "bird","fish"];
+    @State private var count = 0
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Image(systemName: "arrowtriangle.left")
+               .imageScale(.large)
+               .foregroundStyle(.tint)
+               .onTapGesture() {
+                   count -= 1
+                   if (count<0) {
+                       count = 2
+                   }
+               }
+                VStack {
+                    Image(systemName: images[count])
+                        .resizable()
+                        .imageScale(.large)
+                        .foregroundStyle(.tint)
+                        .aspectRatio(contentMode: ContentMode.fit) 
+                }
+                Image(systemName: "arrowtriangle.right")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                    .onTapGesture {
+                        count += 1
+                        if (count>2) {
+                            count = 0
+                        }
+                    }
+        }
     }
 }
 
-#Preview {
-    ImagePickerView()
-}
+//#Preview {
+//    ImagePickerView()
+//}
