@@ -27,7 +27,7 @@ struct ImagePickerView: View {
                }
                 
                 VStack {
-                    Image(systemName: images[count])
+                    Image(systemName: name)
                         .resizable()
                         .imageScale(.large)
                         .foregroundStyle(.tint)
@@ -47,7 +47,7 @@ struct ImagePickerView: View {
     }
     private func updateName() {
             name = images[count]
-            UserDefaults.standard.set(name, forKey: "name")  // Store the selected name in UserDefaults
+            UserDefaults.standard.set(name, forKey: "name")
         }
 }
 

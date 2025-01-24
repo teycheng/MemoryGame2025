@@ -9,33 +9,18 @@ import SwiftUI
 
 struct GameView: View {
     @Binding var name: String
-    @State var showSetting = false
+    @Binding var showSetting: Bool
+    @Binding var showGame: Bool
     var body: some View {
         NavigationStack {
             VStack {
-                if !showSetting {
-                    Image(systemName: name)
-                        .resizable()
-                        .imageScale(.large)
-                        .foregroundStyle(.tint)
-                        .aspectRatio(contentMode: .fit)
-                        .padding()
-                } else {
-                    SettingsView(name:$name)
-                }
+                Image(systemName: name)
+                    .resizable()
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
             }
-            .toolbar {
-                if !showSetting {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            showSetting = true
-                        }, label: {
-                            Image(systemName: "gear")
-                        })
-                    }
-                }
-            }
-            
         }}
 }
 //
