@@ -8,16 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var stepperVal = 2
-    @State private var treasureVal = 2
-    @State private var show = true
+    @State private var name = UserDefaults.standard.value(forKey:"name") as? String ?? "sun.max"
+    
     var body: some View {
-        VStack{
-            ImagePickerView()
-            Stepper("\(stepperVal) Rows/Columns", value: $stepperVal, in: 2...10)
-            Stepper("\(treasureVal) Treasure", value: $treasureVal, in: 2...10)
-            Toggle("Bonus Tile", isOn: $show)
-        }
+        SettingsView(name: $name)
         .padding()
     }
 }

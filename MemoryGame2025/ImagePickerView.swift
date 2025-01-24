@@ -10,6 +10,8 @@ import SwiftUI
 struct ImagePickerView: View {
     @State private var images = ["cloud.sun.rain", "bird","fish"];
     @State private var count = 0
+    @Binding var name: String
+    
 
     var body: some View {
         HStack {
@@ -21,7 +23,9 @@ struct ImagePickerView: View {
                    if (count<0) {
                        count = 2
                    }
+                   updateName()
                }
+                
                 VStack {
                     Image(systemName: images[count])
                         .resizable()
@@ -37,9 +41,14 @@ struct ImagePickerView: View {
                         if (count>2) {
                             count = 0
                         }
+                        updateName()
                     }
         }
     }
+    private func updateName() {
+            name = images[count]
+            UserDefaults.standard.set(name, forKey: "name")  // Store the selected name in UserDefaults
+        }
 }
 
 //#Preview {
