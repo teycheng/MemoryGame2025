@@ -17,7 +17,7 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
+      "parallelizable" : false,
       "target" : {
         "containerPath" : "container:MemoryGame2025.xcodeproj",
         "identifier" : "F35B7D612D31A72C00940499",
@@ -25,7 +25,6 @@
       }
     },
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:MemoryGame2025.xcodeproj",
         "identifier" : "F35B7D6B2D31A72C00940499",

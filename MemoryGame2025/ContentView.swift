@@ -8,42 +8,45 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var name = UserDefaults.standard.value(forKey:"name") as? String ?? "sun.max"
+    @State var name : String
+    @State var count : Int
     @State var showSetting = false
     @State var showGame = true
+    @State var stepperVal = UserDefaults.standard.value(forKey:
+    "StepperValue") as? Int ?? 2
+    @State var treasureVal = UserDefaults.standard.value(forKey:
+    "TreasureValue") as? Int ?? 2
     
+    init() {
+        _name = State(initialValue: UserDefaults.standard.value(forKey:"name") as? String ?? "sun.max")
+        _count = State(initialValue: UserDefaults.standard.value(forKey:"count") as? Int ?? 0)
+    }
     var body: some View {
         NavigationStack{
             VStack{
                 if showSetting {
-                    SettingsView(name: $name, showGame: $showGame, showSetting: $showSetting)
+                    SettingsView(stepperVal: $stepperVal, treasureVal: $treasureVal, count: $count, name: $name, showGame: $showGame, showSetting: $showSetting)
                         .padding()
                 }
                 if showGame{
-                    GameView(name: $name, showSetting: $showSetting, showGame: $showGame)
+                    GameView(name: $name, showSetting: $showSetting, showGame: $showGame,count: $count, stepperVal: $stepperVal,treasureVal: $treasureVal)
                         .padding()
                 }
             }
             .toolbar {
-                if showGame {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        if showGame {
                             showGame = false
                             showSetting = true
-                        }, label: {
-                            Image(systemName: "gear")
-                        })
-                    }
-                }
-                else if !showGame {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
+                        } else {
                             showGame = true
                             showSetting = false
-                        }, label: {
-                            Image(systemName: "house")
-                        })
-                    }
+                        }
+                    }, label: {
+                        Image(systemName: showGame ? "gear" : "house")
+                    })
+                    .accessibilityIdentifier(showGame ? "SettingsButton" : "GameButton")
                 }
             }
         }

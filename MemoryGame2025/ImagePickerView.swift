@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ImagePickerView: View {
     @State private var images = ["cloud.sun.rain", "bird","fish"];
-    @State private var count = 0
+    @Binding  var count : Int
     @Binding var name: String
-    
+    @State var counter: Int = 0
 
     var body: some View {
         HStack {
@@ -24,15 +24,23 @@ struct ImagePickerView: View {
                        count = 2
                    }
                    updateName()
+                   counter += 1
                }
+               .accessibilityIdentifier("PreviousButton")
+                Text("\(name)")
                 
                 VStack {
                     Image(systemName: name)
                         .resizable()
                         .imageScale(.large)
                         .foregroundStyle(.tint)
-                        .aspectRatio(contentMode: ContentMode.fit) 
+                        .aspectRatio(contentMode: ContentMode.fit)
+                        .accessibilityLabel("\(name)")
+                        .accessibilityIdentifier("SelectedImage")
+                        Text("\(count)")
+                        Text("\(name)")
                 }
+            
                 Image(systemName: "arrowtriangle.right")
                     .imageScale(.large)
                     .foregroundStyle(.tint)
@@ -43,11 +51,14 @@ struct ImagePickerView: View {
                         }
                         updateName()
                     }
+                    .accessibilityIdentifier("NextButton")
+
         }
     }
     private func updateName() {
             name = images[count]
             UserDefaults.standard.set(name, forKey: "name")
+            UserDefaults.standard.set(count, forKey: "count")
         }
 }
 
