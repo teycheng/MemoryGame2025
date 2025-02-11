@@ -9,6 +9,9 @@ struct GameView: View {
     @Binding var treasureVal: Int
     
     @State private var b: Board? = nil
+    @State var timer = Timer.publish(every: 2, on: .main,
+                                     in: .common).autoconnect()
+    @State var showTreasure: Bool = true
     
     var body: some View {
         NavigationStack {
@@ -17,15 +20,26 @@ struct GameView: View {
                     ForEach(board.board, id: \.first!.id) { row in
                         HStack {
                             ForEach(row) { tile in
-                                if let content = tile.contents {
-                                    Image(systemName: content)
-                                        .resizable()
-                                        .imageScale(.large)
-                                        .foregroundStyle(.tint)
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding()
-                                        .accessibilityLabel("\(name)")
-                                        .accessibilityIdentifier("CurrentImage")
+                                if(showTreasure){
+                                    if let content = tile.contents {
+                                        Image(systemName: content)
+                                            .resizable()
+                                            .imageScale(.large)
+                                            .foregroundStyle(.tint)
+                                            .aspectRatio(contentMode: .fit)
+                                            .padding()
+                                            .accessibilityLabel("\(name)")
+                                            .accessibilityIdentifier("CurrentImage")
+                                    } else {
+                                        Image(systemName: "questionmark.circle.dashed")
+                                            .resizable()
+                                            .imageScale(.large)
+                                            .foregroundStyle(.tint)
+                                            .aspectRatio(contentMode: .fit)
+                                            .padding()
+                                            .accessibilityLabel("\(name)")
+                                            .accessibilityIdentifier("CurrentImage")
+                                    }
                                 } else {
                                     Image(systemName: "questionmark.circle.dashed")
                                         .resizable()
@@ -38,10 +52,10 @@ struct GameView: View {
                                 }
                             }
                         }
+ 
                     }
                 }
             }
-            
             .onAppear {
                 b = Board(stepperVal: stepperVal)
                 
@@ -50,6 +64,9 @@ struct GameView: View {
                     let randomCol = Int.random(in: 0..<stepperVal)
                     b?.board[randomRow][randomCol].contents = name
                 }
+            }
+            .onReceive(timer) { _ in
+                showTreasure = false
             }
         }
     }
