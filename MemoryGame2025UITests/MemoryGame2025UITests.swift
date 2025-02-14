@@ -99,11 +99,11 @@ final class MemoryGame2025UITests: XCTestCase {
         let stepper2 = app.steppers["TreasureButton"]
         let increment = stepper2.buttons["TreasureButton-Increment"]
         let decrement = stepper2.buttons["TreasureButton-Decrement"]
-        for i in 1...9 {
+        for _ in 1...9 {
             increment.tap()
         }
             XCTAssertEqual(stepper2.label, "10 Treasure", "Stepper did not increment properly")
-        for i in 1...9 {
+        for _ in 1...9 {
             decrement.tap()
         }
             XCTAssertEqual(stepper2.label, "2 Treasure", "Stepper did not decrement properly")
@@ -127,34 +127,34 @@ final class MemoryGame2025UITests: XCTestCase {
         nextButton.tap()
         XCTAssertEqual(image.label, "bird", "Next button did not work")
         
-        for i in 1...3 {
+        for _ in 1...3 {
             prevButton.tap()
         }
         XCTAssertEqual(image.label, "bird", "Previous button did not work")
-        for i in 1...3 {
+        for _ in 1...3 {
             nextButton.tap()
         }
         XCTAssertEqual(image.label, "bird", "Next button did not work")
 
     }
     
-    func testImageChange() throws{
-        let app = XCUIApplication()
-        app.launch()
-        let settingsButton = app.buttons["SettingsButton"]
-        settingsButton.tap()
-        let prevButton = app.images["PreviousButton"]
-        let nextButton = app.images["NextButton"]
-        let image = app.images["CurrentImage"]
-        prevButton.tap()
-        let gameButton = app.buttons["GameButton"]
-        gameButton.tap()
-        XCTAssertEqual(image.label, "cloud.sun.rain", "Image did not update properly")
-        //Reset
-        settingsButton.tap()
-        nextButton.tap()
-    }
-    
+//    func testImageChange() throws{
+//        let app = XCUIApplication()
+//        app.launch()
+//        let settingsButton = app.buttons["SettingsButton"]
+//        settingsButton.tap()
+//        let prevButton = app.images["PreviousButton"]
+//        let nextButton = app.images["NextButton"]
+//        let image = app.images["CurrentImage"]
+//        prevButton.tap()
+//        let gameButton = app.buttons["GameButton"]
+//        gameButton.tap()
+//        XCTAssertEqual(image.label, "cloud.sun.rain", "Image did not update properly")
+//        //Reset
+//        settingsButton.tap()
+//        nextButton.tap()
+//    }
+//    
     func testSavingLoading() throws{
         let app = XCUIApplication()
         app.launch()

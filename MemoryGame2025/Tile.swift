@@ -7,7 +7,7 @@
 import Observation
 @Observable class Tile : Identifiable {
     var contents : String?
-    
+    var showTreasure: Bool = true
     init(contents: String?) {
         self.contents = contents
     }
