@@ -12,6 +12,8 @@ struct GameView: View {
     @State var timer = Timer.publish(every: 2, on: .main,
                                      in: .common).autoconnect()
     @State var showTreasure: Bool = true
+    @State private var tapCount: Int = 0
+    @State private var unrevealedTreasures: Int = 0
     
     var body: some View {
         NavigationStack {
@@ -49,6 +51,15 @@ struct GameView: View {
                                         .padding()
                                         .accessibilityLabel("\(name)")
                                         .accessibilityIdentifier("CurrentImage")
+                                        .onTapGesture {
+                                            if tile.contents != nil {
+                                                tile.contents = nil
+                                            } else {
+                                                tile.contents = name
+                                                unrevealedTreasures -= 1
+                                            }
+                                             tapCount += 1
+                                        }
                                 }
                             }
                         }

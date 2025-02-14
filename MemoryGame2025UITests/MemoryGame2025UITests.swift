@@ -67,11 +67,11 @@ final class MemoryGame2025UITests: XCTestCase {
         let stepper1 = app.steppers["RowColumnStepper"]
         let increment = stepper1.buttons["RowColumnStepper-Increment"]
         let decrement = stepper1.buttons["RowColumnStepper-Decrement"]
-        for i in 1...9 {
+        for _ in 1...9 {
             increment.tap()
         }
             XCTAssertEqual(stepper1.label, "10 Rows/Columns", "Stepper did not increment properly")
-        for i in 1...9 {
+        for _ in 1...9 {
             decrement.tap()
         }
             XCTAssertEqual(stepper1.label, "2 Rows/Columns", "Stepper did not decrement properly")
